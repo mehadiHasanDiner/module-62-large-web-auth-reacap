@@ -6,9 +6,9 @@ import { AuthContext } from "../../provider/AuthProvider";
 import { useState } from "react";
 
 const Register = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUser, auth } = useContext(AuthContext);
   const [userName, setUserName] = useState("");
-  const [photoUrl, setPhotoUrl] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
@@ -18,8 +18,8 @@ const Register = () => {
   };
 
   const handleUserPhoto = (e) => {
-    const usePhoto = e.target.value;
-    setPhotoUrl(usePhoto);
+    const photo = e.target.value;
+    setImgUrl(photo);
   };
 
   const handleUserEmail = (e) => {
@@ -44,13 +44,25 @@ const Register = () => {
       .catch((error) => {
         console.log(error);
       });
+
+    updateUser({ displayName: userName, photoUrl: imgUrl })
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    // const userInfo = { displayName: userName, photoUrl: imgUrl };
+    // console.log(userInfo);
   };
 
   return (
     <Container>
       <Form onSubmit={handleRegister} className="mx-auto w-50 mt-5">
         <h3 className="mb-4">Please Register</h3>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="formBasicName">
           <Form.Label>Name</Form.Label>
           <Form.Control
             type="text"
@@ -61,12 +73,12 @@ const Register = () => {
             onChange={handleUserName}
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Group className="mb-3" controlId="formBasicPhoto">
           <Form.Label>Photo URL</Form.Label>
           <Form.Control
             type="url"
             name="photo"
-            value={photoUrl}
+            value={imgUrl}
             required
             placeholder="Your photo url"
             onChange={handleUserPhoto}
