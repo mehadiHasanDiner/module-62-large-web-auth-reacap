@@ -45,7 +45,8 @@ const Register = () => {
         console.log(error);
       });
 
-    updateUser({ displayName: userName, photoUrl: imgUrl })
+    user
+      .updateUser({ displayName: userName, photoUrl: imgUrl })
       .then((result) => {
         const loggedUser = result.user;
         console.log(loggedUser);

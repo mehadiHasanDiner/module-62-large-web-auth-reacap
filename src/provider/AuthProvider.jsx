@@ -23,6 +23,8 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  const user = auth().currentUser;
+
   const updateUser = (name, imageUrl) => {
     return updateProfile(auth.currentUser, {
       displayName: name,
