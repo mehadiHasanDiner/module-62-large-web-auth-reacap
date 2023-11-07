@@ -1,10 +1,14 @@
 import React, { useContext, useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import AuthProvider, { AuthContext } from "../../provider/AuthProvider";
 
 const Login = () => {
   const { userSignIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
+  const from = location.state?.from?.pathname || "/category/0";
 
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -31,6 +35,7 @@ const Login = () => {
       .catch((error) => {
         console.log(error);
       });
+    navigate(from, { replace: true });
   };
 
   return (

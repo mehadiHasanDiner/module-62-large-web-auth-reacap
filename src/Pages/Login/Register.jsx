@@ -6,11 +6,12 @@ import { AuthContext } from "../../provider/AuthProvider";
 import { useState } from "react";
 
 const Register = () => {
-  const { createUser, updateUser, auth } = useContext(AuthContext);
+  const { createUser, updateUser } = useContext(AuthContext);
   const [userName, setUserName] = useState("");
   const [imgUrl, setImgUrl] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
+  const [accepted, setAccepted] = useState(false);
 
   const handleUserName = (e) => {
     const user = e.target.value;
@@ -45,18 +46,21 @@ const Register = () => {
         console.log(error);
       });
 
-    user
-      .updateUser({ displayName: userName, photoUrl: imgUrl })
-      .then((result) => {
-        const loggedUser = result.user;
-        console.log(loggedUser);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // updateUser({ displayName: userName, photoUrl: imgUrl })
+    //   .then((result) => {
+    //     const loggedUser = result.user;
+    //     console.log(loggedUser);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
 
     // const userInfo = { displayName: userName, photoUrl: imgUrl };
     // console.log(userInfo);
+  };
+
+  const handleAccepted = (event) => {
+    setAccepted(event.target.checked);
   };
 
   return (
@@ -110,14 +114,19 @@ const Register = () => {
         </Form.Group>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check
+            onClick={handleAccepted}
             type="checkbox"
             name="accept"
-            label="Accept the terms and conditions"
+            label={
+              <>
+                Accept <Link to="/terms">the terms and conditions</Link>
+              </>
+            }
           />
           <Form.Text className="text-danger"></Form.Text>
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="primary" type="submit" disabled={!accepted}>
           Register
         </Button>
 

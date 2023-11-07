@@ -1,8 +1,10 @@
-import React, { createContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   getAuth,
+  onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut,
   updateProfile,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
@@ -13,18 +15,20 @@ const auth = getAuth(app);
 // console.log(user);
 
 const AuthProvider = ({ children }) => {
-  const user = null;
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   const userSignIn = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  const user = auth().currentUser;
-
+  // updating profile
   const updateUser = (name, imageUrl) => {
     return updateProfile(auth.currentUser, {
       displayName: name,
@@ -32,11 +36,30 @@ const AuthProvider = ({ children }) => {
     });
   };
 
+  // signing out
+  const logOut = () => {
+    setLoading(true);
+    return signOut(auth);
+  };
+
+  // set observer while user is logged in
+  useEffect(() => {
+    const unSubscribe = onAuthStateChanged(auth, (loggedUser) => {
+      console.log("logged in user inside auth state observer", loggedUser);
+      setUser(loggedUser);
+      setLoading(false);
+    });
+    return () => {
+      unSubscribe();
+    };
+  }, []);
+
   const authInfo = {
-    auth,
     user,
+    loading,
     createUser,
     userSignIn,
+    logOut,
     updateUser,
   };
   return (
