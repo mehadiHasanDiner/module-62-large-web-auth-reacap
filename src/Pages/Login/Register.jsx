@@ -26,13 +26,13 @@ const Register = () => {
   const handleUserEmail = (e) => {
     const email = e.target.value;
     setUserEmail(email);
-    console.log(email);
+    // console.log(email);
   };
 
   const handleUserPassword = (e) => {
     const password = e.target.value;
     setUserPassword(password);
-    console.log(password);
+    // console.log(password);
   };
 
   const handleRegister = (e) => {

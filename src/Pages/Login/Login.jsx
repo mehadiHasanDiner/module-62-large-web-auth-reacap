@@ -7,7 +7,7 @@ const Login = () => {
   const { userSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
+  // console.log(location);
   const from = location.state?.from?.pathname || "/category/0";
 
   const [userEmail, setUserEmail] = useState("");
@@ -16,13 +16,13 @@ const Login = () => {
   const handleUserEmail = (e) => {
     const email = e.target.value;
     setUserEmail(email);
-    console.log(email);
+    // console.log(email);
   };
 
   const handleUserPassword = (e) => {
     const password = e.target.value;
     setUserPassword(password);
-    console.log(password);
+    // console.log(password);
   };
 
   const handleUserSingIn = (e) => {
