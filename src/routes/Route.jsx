@@ -42,7 +42,7 @@ const router = createBrowserRouter([
         element: <Category></Category>,
         loader: ({ params }) =>
           fetch(
-            `https://module-62-large-web-auth-reacap-server-p02y50qzd.vercel.app/categories/${params.id}`
+            `https://module-62-large-web-auth-reacap-server-edum.vercel.app/categories/${params.id}`
           ),
       },
     ],
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(
-            `https://module-62-large-web-auth-reacap-server-p02y50qzd.vercel.app/news/${params.id}`
+            `https://module-62-large-web-auth-reacap-server-edum.vercel.app/news/${params.id}`
           ),
       },
     ],
