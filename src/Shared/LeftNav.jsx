@@ -6,7 +6,7 @@ const LeftNav = () => {
 
   useEffect(() => {
     fetch(
-      "https://module-62-large-web-auth-reacap-server-edum.vercel.app/categories"
+      "https://module-62-large-web-auth-reacap-server.vercel.app/categories"
     )
       .then((res) => res.json())
       .then((data) => setCategories(data))

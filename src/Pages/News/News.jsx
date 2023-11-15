@@ -3,12 +3,18 @@ import { Button, Card } from "react-bootstrap";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link, useLoaderData } from "react-router-dom";
 import EditorsInsights from "./EditorsInsights";
+import useTitle from "../../hook/useTitle";
+import { Helmet } from "react-helmet-async";
 
 const News = () => {
+  // useTitle("News");
   const news = useLoaderData();
   const { title, details, _id, image_url, category_id } = news;
   return (
     <div>
+      <Helmet>
+        <title>Hello World</title>
+      </Helmet>
       <Card>
         <Card.Img variant="top" src={image_url} />
         <Card.Body>
